@@ -69,7 +69,7 @@ def make_coffee(coffee):
     for i in MENU[coffee]["ingredients"]:
         resources[i] -= MENU[coffee]["ingredients"][i]
     resources["money"] += MENU[coffee]["cost"]
-    print(f'Here is your {coffee}. Enjoy!')
+    print(f'Here is your {coffee}. Enjoy!☕')
 
 
 # Prompt user by asking “ What would you like? (espresso/latte/cappuccino)
