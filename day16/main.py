@@ -2,7 +2,6 @@ MENU = {
     "espresso": {
         "ingredients": {
             "water": 50,
-            "milk": 0,
             "coffee": 18,
         },
         "cost": 1.5,
@@ -34,17 +33,11 @@ resources = {
 
 # Check resources sufficient
 def check_resource(coffee):
-    if resources["water"] < MENU[coffee]["ingredients"]["water"]:
-        print("Sorry there is not enough water.")
-        return False
-    elif resources["milk"] < MENU[coffee]["ingredients"]["milk"]:
-        print("Sorry there is not enough milk.")
-        return False
-    elif resources["coffee"] < MENU[coffee]["ingredients"]["coffee"]:
-        print("Sorry there is not enough coffee.")
-        return False
-    else:
-        return True
+    for i in MENU[coffee]["ingredients"]:
+        if resources[i] < MENU[coffee]["ingredients"][i]:
+            print(f"Sorry there is not enough {i}.")
+            return False
+    return True
 
 # Process coins
 def process_coin(coffee):
@@ -73,9 +66,8 @@ def print_report():
 
 
 def make_coffee(coffee):
-    resources["water"] -= MENU[coffee]["ingredients"]["water"]
-    resources["milk"] -= MENU[coffee]["ingredients"]["milk"]
-    resources["coffee"] -= MENU[coffee]["ingredients"]["coffee"]
+    for i in MENU[coffee]["ingredients"]:
+        resources[i] -= MENU[coffee]["ingredients"][i]
     resources["money"] += MENU[coffee]["cost"]
     print(f'Here is your {coffee}. Enjoy!')
 
@@ -99,9 +91,7 @@ while power_flag:
         print_report()
 
     else:
-        resource_flag = check_resource(input_str)
-
-        if resource_flag:
+        if check_resource(input_str):
             process_coin(input_str)
             make_coffee(input_str)
 
